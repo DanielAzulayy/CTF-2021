@@ -23,13 +23,6 @@ def autoindex(path='.'):
     return assets_files_index.render_autoindex('static/assets/' + path)
 
 
-@main_bp.route('/admin-dir/')
-def load_(path='.'):
-    """ Include the uploads directory.
-    Contains: PDF file with hint, python code."""
-    return assets_files_index.render_autoindex('uploads/' + path)
-
-
 @main_bp.route('/')
 @main_bp.route('/index.html')
 def load_index():
@@ -76,6 +69,18 @@ def load_configure():
 @main_bp.route('/robots.txt')
 def load_robots_txt():
     return main_bp.send_static_file('robots.txt')
+
+# in order to get this dir, reverse the common wordlists you are using, think outside the box.
+@main_bp.route('/admin-dir/hideshar')
+def load_admin_dir(path='.'):
+    """ Include the uploads directory.
+    Contains: PDF file with hint, python code."""
+    return assets_files_index.render_autoindex('admin-dir/admin_uploads/' + path)
+
+
+@main_bp.route('/admin-dir/admin_uploads/<path:filename>', methods=['GET', 'POST'])
+def download_handler(filename):
+    return send_from_directory(directory='admin-dir/admin_uploads', filename=filename)
 
 
 @login_manager.user_loader
