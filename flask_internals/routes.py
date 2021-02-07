@@ -13,7 +13,7 @@ main_bp = Blueprint('main_bp',
                     template_folder='templates',
                     static_folder='static')
 
-# assets config - locally.
+# assets config - locally uploaded.
 assets_files_index = AutoIndex(
     main_bp, 'flask_internals/', add_url_rules=False)
 
@@ -73,6 +73,8 @@ def load_robots_txt():
 
 # in order to get this dir, reverse the common wordlists you are using, think outside the box.
 # learn an important lesson.
+
+
 @main_bp.route('/admin-dir/hideshar')
 def load_admin_dir(path='.'):
     """Include the uploads directory.
@@ -99,4 +101,4 @@ def load_user(user_id):
 def unauthorized():
     """Redirect unauthorized users to Login page."""
     flash('You must be logged in to view that page.')
-    return redirect(url_for('main_bp.load_admin_login'))
+    return redirect(url_for('auth_bp.admin_login'))
