@@ -1,6 +1,5 @@
 lib/
 logs/
-logs/
 __pycache__/
 .vscode/
 .vscode

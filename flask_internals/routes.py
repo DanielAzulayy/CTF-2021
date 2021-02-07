@@ -13,6 +13,7 @@ main_bp = Blueprint('main_bp',
                     template_folder='templates',
                     static_folder='static')
 
+# assets config - locally.
 assets_files_index = AutoIndex(
     main_bp, 'flask_internals/', add_url_rules=False)
 
@@ -65,21 +66,25 @@ def load_configure():
     return db_config
 
 
-# ------------------ SECOND HINT  - admin-dir/ ---------------------
+# ------------------ SECOND HINT  - contains admin-dir/ ---------------------
 @main_bp.route('/robots.txt')
 def load_robots_txt():
     return main_bp.send_static_file('robots.txt')
 
 # in order to get this dir, reverse the common wordlists you are using, think outside the box.
+
+
 @main_bp.route('/admin-dir/hideshar')
 def load_admin_dir(path='.'):
-    """ Include the uploads directory.
+    """Include the uploads directory.
     Contains: PDF file with hint, python code."""
     return assets_files_index.render_autoindex('admin-dir/admin_uploads/' + path)
 
 
 @main_bp.route('/admin-dir/admin_uploads/<path:filename>', methods=['GET', 'POST'])
 def download_handler(filename):
+    """Download a file in admin_uploads directory.
+    Directory contains some hints in order to get to the admin panel.""""
     return send_from_directory(directory='admin-dir/admin_uploads', filename=filename)
 
 
