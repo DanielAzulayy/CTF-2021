@@ -7,7 +7,7 @@ from .models import db, User
 from flask_autoindex import AutoIndex
 import json
 
-# Blueprint configuration
+# Blueprint configuration.
 main_bp = Blueprint('main_bp',
                     __name__,
                     template_folder='templates',
@@ -72,8 +72,7 @@ def load_robots_txt():
     return main_bp.send_static_file('robots.txt')
 
 # in order to get this dir, reverse the common wordlists you are using, think outside the box.
-
-
+# learn an important lesson.
 @main_bp.route('/admin-dir/hideshar')
 def load_admin_dir(path='.'):
     """Include the uploads directory.
@@ -84,7 +83,7 @@ def load_admin_dir(path='.'):
 @main_bp.route('/admin-dir/admin_uploads/<path:filename>', methods=['GET', 'POST'])
 def download_handler(filename):
     """Download a file in admin_uploads directory.
-    Directory contains some hints in order to get to the admin panel.""""
+    Directory contains some hints in order to get to the admin panel."""
     return send_from_directory(directory='admin-dir/admin_uploads', filename=filename)
 
 

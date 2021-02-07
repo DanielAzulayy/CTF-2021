@@ -11,23 +11,20 @@ login_manager = LoginManager()
 
 def create_app():
     """Construct the core app object."""
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(__name__)
     app.config.from_object('config.Config')
 
-    #AutoIndex(app, browse_root='flask_internals/static/assets/css')
-    
     # Initialize Plugins
     db.init_app(app)
     login_manager.init_app(app)
 
     with app.app_context():
-        from . import routes
-        #from .assets import compile_static_assets
-
-        # Register Blueprints
+        from flask_internals import routes
+        from flask_internals.auth import auth_bp
+        # Register Blueprints - auth & main.
         app.register_blueprint(routes.main_bp)
-        #app.register_blueprint(auth.auth_bp)
+        app.register_blueprint(auth_bp)
 
         # Create Database Models
-        # db.create_all()
+        db.create_all()
         return app
