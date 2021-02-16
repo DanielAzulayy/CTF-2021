@@ -19,7 +19,7 @@
     {{ form.csrf_token }}
     <fieldset class="name">
       {{ form.name.label }}
-      {{ form.name(placeholder='') }}
+      {{ form.name(placeholder='Shimon') }}
       {% if form.name.errors %}
       <ul class="errors">
         {% for error in form.email.errors %}
@@ -30,7 +30,7 @@
     
     <fieldset class="email">
       {{ form.email.label }}
-      {{ form.email(placeholder='') }}
+      {{ form.email(placeholder='example@6clothing.co.il') }}
       {% if form.email.errors %}
       <ul class="errors">
         {% for error in form.email.errors %}

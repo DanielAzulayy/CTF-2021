@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
         'Email',
         validators=[
             DataRequired(),
-            Email(message='Enter a valid email (example@eatery.co.il)')
+            Email(message='Enter a valid email (example@6clothing.co.il)')
         ]
     )
     password = PasswordField('Password', validators=[DataRequired()])
@@ -39,7 +39,7 @@ class SignupForm(FlaskForm):
         'Email',
         validators=[
             Length(min=6),
-            Email(message='Enter a valid email (example@eatery.co.il)'),
+            Email(message='Enter a valid email (example@6clothing.co.il)'),
             DataRequired()
         ]
     )

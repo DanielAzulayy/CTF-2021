@@ -19,68 +19,84 @@ def admin_login():
     """Log-in page for registered users.
     GET requests serve Log-in page.
     POST requests validate and redirect user to dashboard."""
-
     form = LoginForm()
-
     if form.validate_on_submit():
         # check for a specifc email & password - just for CTF purposes.
-        # avoid any interatcion with the db - SQLi is not the goal here.
-        requests
+        # avoid any interatcion with the db - SQLi isn't the goal here.
         if form.email.data == "avi@6clothing.co.il" and form.password.data == "any6gkbi":
             user = User.query.filter_by(email=form.email.data).first()
-
-            login_user(user)
-            return redirect(url_for('auth_bp.dashboard'))
+            if user:
+                login_user(user)
+                url_for('auth_bp.load_dashboard')
 
         flash('Invalid email/password')
-        return redirect(url_for('main_bp.load_admin_login'))
+        return redirect(url_for('auth_bp.admin_login'))
 
     return render_template(
         'admin_login/login.jinja2',
-        form=form,
-        title='Log in',
-        template='login-page',
-        body="Log in with your User."
+        form = form,
+        title = 'Log in',
+        template = 'login-page',
+        body = "Log in with your User."
     )
 
 
-@auth_bp.route('/admin-dir/hideshar/signup', methods=['GET', 'POST'])
+@ auth_bp.route('/admin-dir/hideshar/signup', methods = ['GET', 'POST'])
 def signup():
-    """User sign-up page. Just a trap!!!!
-    GET requests serve sign-up page.
-    POST requests validate form & user creation."""
-
-    form = SignupForm()
-
+    """
+        User sign-up page. Just a trap, it's never really signing up.
+        GET requests serve sign-up page.
+        POST requests validate form & user creation.
+    """
+    form=SignupForm()
     if form.validate_on_submit():
-        existing_user = User.query.filter_by(email=form.email.data).first()
-        if existing_user is None:
-            return redirect(url_for('main_bp.load_admin_login'))
+        existing_user=User.query.filter_by(email = form.email.data).first()
+        if existing_user:
+            # this gives an indication - this email is in use.
+            flash('A user already exists with that email address.')
+            return redirect(url_for('auth_bp.signup'))
 
-        flash('A user already exists with that email address.')
+        return redirect(url_for('auth_bp.admin_login'))
 
     return render_template(
         'admin_login/signup.jinja2',
-        title='Create an Account',
-        form=form,
-        template='signup-page',
-        body="Sign up for a user."
+        title = 'Create an Account',
+        form = form,
+        template = 'signup-page',
+        body = "Sign up for a user."
     )
 
 
-def _encode_auth_token(email):
-    """
-    Generates the Auth Token
-    :return: string
-    """
-    try:
-        payload = {
-            'user': email,
-            'iat': datetime.datetime.utcnow(),
-            'is_admin': if email == 'eli
-        }
-        return jwt.encode(
-            payload,
-            auth_bp.config.get('SECRET_KEY'),
-            algorithm='HS256'
-        )
+@ auth_bp.route('/admin-dir/hideshar/dashboard', methods = ['GET', 'POST'])
+@ login_required
+def load_dashboard():
+    return "This is the dashboard for now."
+
+    # def _encode_auth_token(email):
+    #     """
+    #     Generates the Auth Token
+    #     :return: string
+    #     """
+    #     try:
+    #         payload = {
+    #             'user': email,
+    #             'iat': datetime.datetime.utcnow(),
+    #             'is_admin': "false" # User needs to set to true to bypass.
+    #         }
+    #         return jwt.encode(
+    #             payload,
+    #             auth_bp.config.get('SECRET_KEY'),
+    #             algorithm='HS256'
+    #         )
+
+    # Vulns summary:
+
+    # 1). "Password Cracking" with wordlist
+
+    # 2). Exploit a misconfigured JWT token
+
+    # 3). Sudo local priv escalation.
+
+    # add hint wordlist
+
+    # john.
