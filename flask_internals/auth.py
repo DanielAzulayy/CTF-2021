@@ -27,30 +27,34 @@ def admin_login():
             user = User.query.filter_by(email=form.email.data).first()
             if user:
                 login_user(user)
-                return redirect(url_for('auth_bp.load_dashboard'))
+                response = make_response(
+                    redirect('/admin-dir/hideshar/dashboard'))
+                response.set_cookie(
+                    'security_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImF2aSIsImlzX2FkbWluIjoiZmFsc2UifQ.cPwoXIJmCricMpXSMsuxKw6w2dikZMPQSDEfza0lgUw')
+                return response
 
         flash('Invalid email/password')
         return redirect(url_for('auth_bp.admin_login'))
 
     return render_template(
         'admin_login/login.jinja2',
-        form = form,
-        title = 'Log in',
-        template = 'login-page',
-        body = "Log in with your User."
+        form=form,
+        title='Log in',
+        template='login-page',
+        body="Log in with your User."
     )
 
 
-@ auth_bp.route('/admin-dir/hideshar/signup', methods = ['GET', 'POST'])
+@ auth_bp.route('/admin-dir/hideshar/signup', methods=['GET', 'POST'])
 def signup():
     """
-        User sign-up page. Just a trap, it's never really signing up.
-        GET requests serve sign-up page.
-        POST requests validate form & user creation.
+    User sign-up page. Just a trap, it's never really signing up.
+    GET requests serve sign-up page.
+    POST requests validate form & user creation.
     """
-    form=SignupForm()
+    form = SignupForm()
     if form.validate_on_submit():
-        existing_user=User.query.filter_by(email = form.email.data).first()
+        existing_user = User.query.filter_by(email=form.email.data).first()
         if existing_user:
             # this gives an indication - this email is in use.
             flash('A user already exists with that email address.')
@@ -60,35 +64,20 @@ def signup():
 
     return render_template(
         'admin_login/signup.jinja2',
-        title = 'Create an Account',
-        form = form,
-        template = 'signup-page',
-        body = "Sign up for a user."
+        title='Create an Account',
+        form=form,
+        template='signup-page',
+        body="Sign up for a user."
     )
 
 
-@ auth_bp.route('/admin-dir/hideshar/dashboard', methods = ['GET', 'POST'])
+@ auth_bp.route('/admin-dir/hideshar/dashboard', methods=['GET', 'POST'])
 @ login_required
 def load_dashboard():
     return "This is the dashboard for now."
 
-    # def _encode_auth_token(email):
-    #     """
-    #     Generates the Auth Token
-    #     :return: string
-    #     """
-    #     try:
-    #         payload = {
-    #             'user': email,
-    #             'iat': datetime.datetime.utcnow(),
-    #             'is_admin': "false" # User needs to set to true to bypass.
-    #         }
-    #         return jwt.encode(
-    #             payload,
-    #             auth_bp.config.get('SECRET_KEY'),
-    #             algorithm='HS256'
-    #         )
 
+@
     # Vulns summary:
 
     # 1). "Password Cracking" with wordlist
