@@ -27,7 +27,7 @@ def admin_login():
             user = User.query.filter_by(email=form.email.data).first()
             if user:
                 login_user(user)
-                url_for('auth_bp.load_dashboard')
+                return redirect(url_for('auth_bp.load_dashboard'))
 
         flash('Invalid email/password')
         return redirect(url_for('auth_bp.admin_login'))

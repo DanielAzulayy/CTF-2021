@@ -1,5 +1,0 @@
- # rabbit hole...
-        "development_credintails": {
-            "username": "Sam",
-            "password": "9WJm3Td8mVbmerV7"
-        },
