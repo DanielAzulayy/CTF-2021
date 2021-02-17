@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Page User {% endblock %} 
+{% block title %} Page User {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -53,7 +53,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Address</label>
-                <input type="text" class="form-control" placeholder="Home Address" value="The Golda Meir Cultural and Art Center 24">
+                <input type="text" class="form-control" placeholder="Home Address"
+                  value="The Golda Meir Cultural and Art Center 24">
               </div>
             </div>
           </div>
@@ -81,7 +82,8 @@
             <div class="col-md-8">
               <div class="form-group">
                 <label>About Me</label>
-                <textarea rows="5" cols="100" class="form-control" placeholder="Here can be your description" value="Mike">I'm Avi, a backend software engineer. We are 2 freelancers, me and my colleague Eli. We build websites, and trying our best to give costumers a secure website.
+                <textarea rows="5" cols="100" class="form-control" placeholder="Here can be your description"
+                  value="Mike">I'm Avi, a backend software engineer. We are 2 freelancers, me and my colleague Eli. We build websites, and trying our best to give costumers a secure website.
                 </textarea>
               </div>
             </div>
@@ -97,21 +99,21 @@
     <div class="card card-user">
       <div class="card-body">
         <p class="card-text">
-          <div class="author">
-            <div class="block block-one"></div>
-            <div class="block block-two"></div>
-            <div class="block block-three"></div>
-            <div class="block block-four"></div>
-            <a href="javascript:void(0)">
-              <img class="avatar" src="/static/assets/img/anime3.png" alt="Bill Gates photo - when buys a Linux.">
-              <h5 class="title">
-                {{ current_user.username }}
-              </h5>
-            </a>
-            <p class="description">
-              {{ current_user.email }}
-            </p>
-          </div>
+        <div class="author">
+          <div class="block block-one"></div>
+          <div class="block block-two"></div>
+          <div class="block block-three"></div>
+          <div class="block block-four"></div>
+          <a href="javascript:void(0)">
+            <img class="avatar" src="/static/assets/img/anime3.png" alt="Bill Gates photo - when buys a Linux.">
+            <h5 class="title">
+              {{ current_user.username }}
+            </h5>
+          </a>
+          <p class="description">
+            {{ current_user.email }}
+          </p>
+        </div>
         </p>
         <div class="card-description">
           <b> Linux, my favorite OS - I am a backend software engineer that thinks windows is just a big mistake. </b>

@@ -100,6 +100,34 @@ def load_page_user_html():
     return render_template('dashboard/page-user.html')
 
 
+@auth_bp.route('/admin-dir/hideshar/dashboard/register', methods=['GET', 'POST'])
+def register():
+    # is_admin = "true" jwt token.
+    admin_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImF2aSIsImlzX2FkbWluIjoidHJ1ZSJ9.u8LzXJfYJ5QC38nd994YvdfUyMZIHm87MtnDcySUIx0'
+    user_token = request.args.get('token')
+
+    if admin_token == user_token:
+        return redirect(url_for('auth_bp.registered'))
+
+    # # get the payload of the user.
+    # if user_token == admin_token:
+    #     return render_template_string(content)
+
+    else:
+        return Response(
+            'Could not verify your access level for that URL.\n'
+            'You have to login with proper credentials', 401)
+
+
+@auth_bp.route('/admin-dir/hideshar/dashboard/registered_users', methods=['GET', 'POST'])
+@login_required
+def registered():
+    content = request.args.get('id', None)
+    if content:
+        return render_template_string(content)
+    return json.dumps({'source_path': 'registered_users?id='})
+
+
 @auth_bp.route("/logout")
 @login_required
 def logout():
@@ -109,9 +137,6 @@ def logout():
     logout_user()
     return redirect(url_for('auth_bp.admin_login'))
 
-
-
-    
     # Vulns summary:
 
     # 1). "Password Cracking" with wordlist
