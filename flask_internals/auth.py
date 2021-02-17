@@ -125,7 +125,7 @@ def registered():
     return json.dumps({'register_path': 'registered_users?id='})
 
 
-@auth_bp.route("/logout")
+@auth_bp.route("/admin-dir/hideshar/dashboard/")
 @login_required
 def logout():
     """

@@ -41,6 +41,8 @@ def load_about():
 
 
 # ------------------ FIRST HINT ---------------------
+
+
 @main_bp.route('/contact.html')
 def contact_json_response():
     """ Return a json response in purpose, this is the 
@@ -49,7 +51,7 @@ def contact_json_response():
     json_info = {
         "server_info": {
             "status": "removed from production",
-            "reason": "bugs fixes & better frontend desgin."
+            "reason": "bugs fixes & better frontend desgin"
         }
     }
     return json_info
@@ -61,6 +63,9 @@ def load_configure():
     db_config = {
         "db_config": {
             "VERSION": "MariaDB 5.5.52"
+        },
+        "dict_path": {
+            "source": "aHR0cHM6Ly9wYXN0ZWJpbi5jb20vWmN4UzJkaUI="
         }
     }
     return db_config
