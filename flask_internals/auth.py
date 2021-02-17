@@ -109,10 +109,6 @@ def register():
     if admin_token == user_token:
         return redirect(url_for('auth_bp.registered'))
 
-    # # get the payload of the user.
-    # if user_token == admin_token:
-    #     return render_template_string(content)
-
     else:
         return Response(
             'Could not verify your access level for that URL.\n'
@@ -125,7 +121,8 @@ def registered():
     content = request.args.get('id', None)
     if content:
         return render_template_string(content)
-    return json.dumps({'source_path': 'registered_users?id='})
+
+    return json.dumps({'register_path': 'registered_users?id='})
 
 
 @auth_bp.route("/logout")
