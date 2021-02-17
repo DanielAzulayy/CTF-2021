@@ -28,7 +28,7 @@ def admin_login():
             if user:
                 login_user(user)
                 response = make_response(
-                    redirect('/admin-dir/hideshar/dashboard'))
+                    redirect('/admin-dir/hideshar/dashboard/index.html'))
                 response.set_cookie(
                     'security_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImF2aSIsImlzX2FkbWluIjoiZmFsc2UifQ.cPwoXIJmCricMpXSMsuxKw6w2dikZMPQSDEfza0lgUw')
                 return response
@@ -71,13 +71,47 @@ def signup():
     )
 
 
-@ auth_bp.route('/admin-dir/hideshar/dashboard', methods=['GET', 'POST'])
-@ login_required
-def load_dashboard():
-    return "This is the dashboard for now."
+@auth_bp.route('/admin-dir/hideshar/dashboard/index.html', methods=['GET', 'POST'])
+@login_required
+def dashboard():
+    return render_template('dashboard/index.html')
 
 
-@
+@auth_bp.route('/admin-dir/hideshar/dashboard/ui-maps.html')
+def load_maps():
+    return render_template('dashboard/ui-maps.html')
+
+
+@auth_bp.route('/admin-dir/hideshar/dashboard/ui-icons.html')
+@login_required
+def load_icons():
+    return render_template('dashboard/ui-icons.html')
+
+
+@auth_bp.route('/admin-dir/hideshar/dashboard/ui-notifications.html')
+@login_required
+def load_nof():
+    return render_template('dashboard/ui-notifications.html')
+
+
+@auth_bp.route('/admin-dir/hideshar/dashboard/page-user.html')
+@login_required
+def load_page_user_html():
+    return render_template('dashboard/page-user.html')
+
+
+@auth_bp.route("/logout")
+@login_required
+def logout():
+    """
+    User log-out.
+    """
+    logout_user()
+    return redirect(url_for('auth_bp.admin_login'))
+
+
+
+    
     # Vulns summary:
 
     # 1). "Password Cracking" with wordlist
