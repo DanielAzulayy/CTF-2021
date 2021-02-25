@@ -42,6 +42,7 @@ def load_about():
 
 # ------------------ FIRST HINT ---------------------
 @main_bp.route('/contact')
+@main_bp.route('/contact.html')
 def contact_json_response():
     """ 
     Return a json response in purpose, this is the 
