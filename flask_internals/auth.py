@@ -1,10 +1,9 @@
 from flask import *
-from .forms import LoginForm, GetEmailForm, SignupForm
-from flask_login import current_user, login_user, login_required, logout_user
-from . import login_manager
+from .forms import LoginForm, SignupForm
+from flask_login import login_user, login_required, logout_user
+from .models import User
+
 import os.path
-import requests
-from .models import db, User
 import json
 
 
@@ -133,15 +132,3 @@ def logout():
     """
     logout_user()
     return redirect(url_for('auth_bp.admin_login'))
-
-    # Vulns summary:
-
-    # 1). "Password Cracking" with wordlist
-
-    # 2). Exploit a misconfigured JWT token
-
-    # 3). Sudo local priv escalation.
-
-    # add hint wordlist
-
-    # john.
