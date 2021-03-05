@@ -15,3 +15,4 @@ because of the following:
 
 
 ubuntu 20.04 is recommended for the LPE part.
+If you clone this, please delete this README.md file because it contains some hints.
